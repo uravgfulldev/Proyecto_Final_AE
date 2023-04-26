@@ -1,6 +1,13 @@
+*{
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+}
 body{
     background-color: rgb(58, 58, 58);
     font-family: 'Nunito', sans-serif;
+    margin: 0;
+    
 }
 
 /*Login css*/
@@ -50,14 +57,55 @@ h2{
 /*Monitoreo css*/
 .container-body{
    display: flex;
-   width: 100%;
-   height: 97vh;
+   position: relative;
 }
 
-.nav-bar{
-    background-color: blue;
+.container-body .nav-bar{
+    
+    position:fixed;
+    width: 150px;
+    height: 100%;
     width: 25%;
+    padding:30px 0;
+    border-right: 1px solid rgb(69, 69, 69);
 }
+.container-body .nav-bar h1{
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 20px;
+}
+.container-body .nav-bar ul li{
+    padding:15px;
+    border-bottom: 1px solid rgb(69, 69, 69);
+    border-top: 1px solid rgb(69, 69, 69);
+    list-style: none;
+    text-align: center;
+}
+.container-body .nav-bar ul li:hover{
+    background:  rgb(84, 84, 84);
+}
+.container-body .nav-bar ul li a{
+    color: white;
+    display: block;
+}
+.btn-cerrar-sesion{
+    padding:15px;
+    margin-top:340px;
+    border-bottom: 1px solid rgb(69, 69, 69);
+    border-top: 1px solid rgb(69, 69, 69);
+    background:rgb(58, 58, 58);
+    text-align: center;
+    display: block;
+}
+.btn-cerrar-sesion :hover{
+    background:  rgb(84, 84, 84);
+}
+.btn-cerrar-sesion a{
+    color: white;
+}
+
 .container-content{
     background-color: red;
     width: 75%;
