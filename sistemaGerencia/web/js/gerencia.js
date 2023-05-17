@@ -5,22 +5,8 @@ function iniciarSesion() {
     let usuario = document.getElementById("txtUser").value;
     let password = document.getElementById("txtPassword").value;
 
-    xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState === 4 && this.status === 200) {
-            let usuario = this.responseText;
-
-            if (usuario !== "{}") {
-                window.location.replace("Reportes.html");
-            } else {
-                alert("Ese usuario no existe");
-            }
-        }
-    };
-
-    if (xhttp) {
-        xhttp.open("GET", "IniciarSesion?usuario=" + usuario + "&password=" + password, true);
-        xhttp.send(null);
+    if (usuario.length !== 0 || password.length !== 0) {
+        window.location.replace("Reportes.html");
     }
 }
 
