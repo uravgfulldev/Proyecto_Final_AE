@@ -29,7 +29,7 @@ function generarReporte() {
     let reporteJSON = "";
 
     for (let i = 1; i < rows.length; i++) {
-        reporteJSON = reporteJSON + "{";
+        reporteJSON = reporteJSON + "[{";
 
         reporteJSON = reporteJSON + "fecha:" + rows[i].cells[0].innerHTML + ",zona:" + rows[i].cells[1].innerHTML + "materiales:[" + rows[i].cells[2].innerHTML + "],cantidad:[" + rows[i].cells[3].innerHTML + "],conductores:" + rows[i].cells[4].innerHTML;
 
@@ -39,6 +39,8 @@ function generarReporte() {
             reporteJSON = reporteJSON + "},";
         }
     }
+
+    reporteJSON = reporteJSON + "]";
 
     xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {

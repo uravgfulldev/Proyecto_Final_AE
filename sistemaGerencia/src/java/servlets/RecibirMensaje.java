@@ -4,7 +4,6 @@
  */
 package servlets;
 
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.concurrent.TimeoutException;
@@ -21,8 +20,8 @@ import messageendpoint.MessageEndpoint;
  *
  * @author luisg
  */
-@WebServlet(name = "GenerarReporte", urlPatterns = {"/GenerarReporte"})
-public class GenerarReporte extends HttpServlet {
+@WebServlet(name = "RecibirMensaje", urlPatterns = {"/RecibirMensaje"})
+public class RecibirMensaje extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -50,23 +49,21 @@ public class GenerarReporte extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
         
-        Gson gson = new Gson();
         MessageEndpoint endpoint = new MessageEndpoint();
-        String reporteJSON = request.getParameter("reporte");
-        String nombre_cola = "mon-gen";
+        String nombreCola = "mon-gen";
         
         try {
-            endpoint.enviar(reporteJSON,nombre_cola);
+            String mensaje = endpoint.recibir(nombreCola);
+            
+            try (PrintWriter out = response.getWriter()) {
+                out.println(mensaje);
+                out.flush();
+            }
+        } catch (IOException | TimeoutException | InterruptedException ex) {
+            Logger.getLogger(RecibirMensaje.class.getName()).log(Level.SEVERE, null, ex);
             
             try (PrintWriter out = response.getWriter()) {
                 out.println("{}");
-                out.flush();
-            }
-        } catch (IOException | TimeoutException ex) {
-            Logger.getLogger(GenerarReporte.class.getName()).log(Level.SEVERE, null, ex);
-            
-            try (PrintWriter out = response.getWriter()) {
-                out.println(gson.toJson(ex));
                 out.flush();
             }
         }

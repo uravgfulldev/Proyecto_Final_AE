@@ -20,7 +20,6 @@ import java.util.concurrent.TimeoutException;
  */
 public class ColaIntegracion {
     
-    
     private ConnectionFactory factory;
     
     /**
@@ -39,7 +38,7 @@ public class ColaIntegracion {
      * @throws IOException 
      * @throws TimeoutException 
      */
-    public void enviaMensaje(String mensaje,String nombre_cola) throws IOException, TimeoutException {
+    public void enviaMensaje(String mensaje, String nombre_cola) throws IOException, TimeoutException {
         try (Connection connection = this.factory.newConnection(); Channel channel = connection.createChannel()) {
             channel.queueDeclare(nombre_cola, false, false, false, null);
             channel.basicPublish("", nombre_cola, null, mensaje.getBytes(StandardCharsets.UTF_8));
