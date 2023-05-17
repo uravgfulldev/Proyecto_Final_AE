@@ -7,6 +7,7 @@ package servlets;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Base64;
 import java.util.concurrent.TimeoutException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -47,16 +48,15 @@ public class GenerarReporte extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("application/json");
-        
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {        
         Gson gson = new Gson();
         MessageEndpoint endpoint = new MessageEndpoint();
-        String reporteJSON = request.getParameter("reporte");
+        String reporteJWT = request.getParameter("reporte");
         String nombre_cola = "mon-gen";
         
         try {
-            endpoint.enviar(reporteJSON,nombre_cola);
+            endpoint.enviar(reporteJWT,nombre_cola);
+            response.setContentType("text/plain");
             
             try (PrintWriter out = response.getWriter()) {
                 out.println("{}");
@@ -64,6 +64,7 @@ public class GenerarReporte extends HttpServlet {
             }
         } catch (IOException | TimeoutException ex) {
             Logger.getLogger(GenerarReporte.class.getName()).log(Level.SEVERE, null, ex);
+            response.setContentType("application/json");
             
             try (PrintWriter out = response.getWriter()) {
                 out.println(gson.toJson(ex));

@@ -28,13 +28,12 @@ function recibirReporte() {
     xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
-            if (this.responseText !== "{}") {
-                let mensaje = JSON.parse(this.responseText);
-                alert("Se ha generado un nuevo reporte");
-                
-                borraHijos("tabla");
-                generaTabla("tabla", mensaje);
-            }
+            console.log(this.responseText);
+            let mensaje = JSON.parse(this.responseText);
+            alert("Se ha generado un nuevo reporte");
+            
+            borraHijos("tabla");
+            generaTabla("tabla", mensaje);
         }
     };
 
@@ -71,17 +70,7 @@ function generaTabla(padreID, mensaje) {
         for (let llave in elemento) {
             let celda = document.createElement("td");
 
-            if (llave === "materiales" || llave === "cantidad") {
-                let texto = "";
-                
-                for (let i = 0; i < elemento[llave].length; i++) {
-                    texto = texto + elemento[llave][i];
-                }
-
-                celda.innerHTML = texto;
-            } else {
-                celda.innerHTML = elemento[llave];
-            }
+            celda.innerHTML = elemento[llave];
 
             renglon.appendChild(celda);
         }
