@@ -48,7 +48,7 @@ public class RecibirMensaje extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/plain");
+        response.setContentType("application/json");
         
         MessageEndpoint endpoint = new MessageEndpoint();
         String nombreCola = "mon-gen";

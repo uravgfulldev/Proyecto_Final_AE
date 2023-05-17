@@ -1,34 +1,32 @@
 version: '3'
 services:
-  app-web:
+  app-monitoreo:
     image: sistemamonitoreo:latest
     container_name: sistemamonitoreo
     depends_on:
-    - mysql-server
-    - rabbitmq-server
+    - rabbitmq
     ports:
       - 8081:8080
     networks:
       - terraminera-network
-  mysql-server:
-    image: mysql:8.0.17
-    container_name: terraminera-mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: 1234
-      MYSQL_DATABASE: sistema_monitoreo
+  app-gerencia:
+    image: sistemagerencia:latest
+    container_name: sistemagerencia
+    depends_on:
+    - rabbitmq
     ports:
-      - 3308:3306
+      - 8082:8080
     networks:
       - terraminera-network
-  rabbitmq-server:
-    image: rabbitmq:management
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
     container_name: terraminera-rabbitmq
     environment:
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
     ports:
-      - "5672:5672"
-      - "15672:15672"
+      - 5672:5672
+      - 15672:15672
     networks:
       - terraminera-network
 networks:
