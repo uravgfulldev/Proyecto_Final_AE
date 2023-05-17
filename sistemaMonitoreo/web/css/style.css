@@ -105,7 +105,9 @@ h2{
 .btn-cerrar-sesion a{
     color: white;
 }
-
+.titulo h2{
+    color: white;
+}
 .content{
     display: flex;
     flex-direction: column;
@@ -146,3 +148,8 @@ th, td {
 th {
     background-color: #f2f2f2;
 }
+
+#map {
+    width: 80%;
+    height: 100%;
+  }

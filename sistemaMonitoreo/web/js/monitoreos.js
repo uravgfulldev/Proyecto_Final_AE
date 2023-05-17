@@ -55,4 +55,12 @@ function generarReporte() {
         xhttp.open("GET", "GenerarReporte?reporte=" + reporteJSON, true);
         xhttp.send(null);
     }
+    
 }
+
+function initMap() {
+    var mapCenter = { lat: 27.741145211270663, lng: -109.30536124442628 }; // Set the coordinates of the map center
+    var mapOptions = { zoom: 12, center: mapCenter }; // Set the initial zoom level and center of the map
+    var map = new google.maps.Map(document.getElementById('map'), mapOptions); // Create the map
+    window.initMap = initMap;
+  }
