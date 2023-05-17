@@ -11,7 +11,7 @@ function iniciarSesion() {
             let usuario = this.responseText;
 
             if (usuario !== "{}") {
-                window.location.replace(""); // add later
+                window.location.replace("Reportes.html");
             } else {
                 alert("Ese usuario no existe");
             }
