@@ -53,9 +53,10 @@ public class GenerarReporte extends HttpServlet {
         Gson gson = new Gson();
         MessageEndpoint endpoint = new MessageEndpoint();
         String reporteJSON = request.getParameter("reporte");
+        String nombre_cola ="mon-gen";
         
         try {
-            endpoint.enviar(reporteJSON);
+            endpoint.enviar(reporteJSON,nombre_cola);
             
             try (PrintWriter out = response.getWriter()) {
                 out.println("{}");

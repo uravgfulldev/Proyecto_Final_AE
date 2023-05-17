@@ -26,21 +26,23 @@ public class MessageEndpoint {
     /**
      * 
      * @param mensaje
+     * @param cola
      * @throws IOException
      * @throws TimeoutException 
      */
-    public void enviar(String mensaje) throws IOException, TimeoutException {
-        this.colaIntegracion.enviaMensaje(mensaje);
+    public void enviar(String mensaje, String cola) throws IOException, TimeoutException {
+        this.colaIntegracion.enviaMensaje(mensaje,cola);
     }
     
     /**
      * 
      * @return
+     * @param cola
      * @throws IOException
      * @throws TimeoutException
      * @throws InterruptedException 
      */
-    public String recibir() throws IOException, TimeoutException, InterruptedException {
-        return this.colaIntegracion.recibeMensaje();
+    public String recibir(String cola) throws IOException, TimeoutException, InterruptedException {
+        return this.colaIntegracion.recibeMensaje(cola);
     }
 }

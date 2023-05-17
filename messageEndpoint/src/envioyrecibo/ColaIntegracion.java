@@ -20,7 +20,7 @@ import java.util.concurrent.TimeoutException;
  */
 public class ColaIntegracion {
     
-    private final String NOMBRE_COLA = "terra_minera";
+    
     private ConnectionFactory factory;
     
     /**
@@ -34,39 +34,43 @@ public class ColaIntegracion {
     /**
      * Función que se encarga de enviar un mensaje a la cola terra_minera.
      * 
-     * @param mensaje Mensaje a enviar a la cola terra_minera
+     * @param mensaje Mensaje a enviar 
+     * @param nombre_cola Nombre de cola 
      * @throws IOException 
      * @throws TimeoutException 
      */
-    public void enviaMensaje(String mensaje) throws IOException, TimeoutException {
+    public void enviaMensaje(String mensaje,String nombre_cola) throws IOException, TimeoutException {
         try (Connection connection = this.factory.newConnection(); Channel channel = connection.createChannel()) {
-            channel.queueDeclare(NOMBRE_COLA, false, false, false, null);
-            channel.basicPublish("", NOMBRE_COLA, null, mensaje.getBytes(StandardCharsets.UTF_8));
+            channel.queueDeclare(nombre_cola, false, false, false, null);
+            channel.basicPublish("", nombre_cola, null, mensaje.getBytes(StandardCharsets.UTF_8));
         }
     }
     
     /**
      * 
      * @return
+     * @param nombre_cola Nombre de cola 
      * @throws IOException
      * @throws TimeoutException
      * @throws InterruptedException 
      */
-    public String recibeMensaje() throws IOException, TimeoutException, InterruptedException {        
+    public String recibeMensaje(String nombre_cola) throws IOException, TimeoutException, InterruptedException {        
         BlockingQueue<String> messageQueue = new LinkedBlockingQueue<>();
         
         try (Connection connection = this.factory.newConnection(); Channel channel = connection.createChannel()) {
-            channel.queueDeclare(NOMBRE_COLA, false, false, false, null);
+            channel.queueDeclare(nombre_cola, false, false, false, null);
             
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
                 String mensaje = new String(delivery.getBody(), StandardCharsets.UTF_8);
                 messageQueue.offer(mensaje);
             };
-            channel.basicConsume(NOMBRE_COLA, true, deliverCallback, consumerTag -> {
+            channel.basicConsume(nombre_cola, true, deliverCallback, consumerTag -> {
             });
         }
         
         String mensaje = messageQueue.take();
         return mensaje;
     }
+
+    
 }
