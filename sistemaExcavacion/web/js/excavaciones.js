@@ -18,7 +18,7 @@ function iniciarSesion() {
     };
 
     if (xhttp) {
-        xhttp.open("GET", "IniciarSesion?usuario=" + usuario + "&password=" + password);
+        xhttp.open("GET", "IniciarSesion?usuario=" + usuario + "&password=" + password, true);
         xhttp.send(null);
     }
 }
