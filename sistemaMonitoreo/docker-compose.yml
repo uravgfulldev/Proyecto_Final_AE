@@ -18,6 +18,13 @@ services:
       - 8082:8080
     networks:
       - terraminera-network
+  app-enviocoordenadas:
+    image: enviocoordenadas:latest
+    container_name: enviocoordenadas
+    depends_on:
+    - rabbitmq
+    networks:
+      - terraminera-network
   rabbitmq:
     image: rabbitmq:3-management-alpine
     container_name: terraminera-rabbitmq

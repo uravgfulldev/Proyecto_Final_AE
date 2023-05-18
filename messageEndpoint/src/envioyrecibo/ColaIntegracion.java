@@ -27,7 +27,7 @@ public class ColaIntegracion {
      */
     public ColaIntegracion() {
         this.factory = new ConnectionFactory();
-        this.factory.setHost("localhost");
+        this.factory.setHost("172.23.0.2");
     }
     
     /**
@@ -65,11 +65,9 @@ public class ColaIntegracion {
             };
             channel.basicConsume(nombre_cola, true, deliverCallback, consumerTag -> {
             });
+            
+            String mensaje = messageQueue.take();
+            return mensaje;
         }
-        
-        String mensaje = messageQueue.take();
-        return mensaje;
     }
-
-    
 }
